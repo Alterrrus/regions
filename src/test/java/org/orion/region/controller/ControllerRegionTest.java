@@ -6,7 +6,6 @@ import java.util.Objects;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
-import org.orion.region.RegionApplicationTests;
 import org.orion.region.model.Region;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -19,13 +18,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 
-@RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
+@RunWith(SpringRunner.class)
 class ControllerRegionTest {
 
   public static final Region region1 = new Region(1, "Республика Адыгея (Адыгея)", "01");
   public static final Region region2 = new Region(2, "Республика Башкортостан", "02");
-  public static final Region region4 = new Region(10000, "Астрахань", "30");
+  public static final Region region3 = new Region(3, "Республика Бурятия", "03");
   @Autowired
   private TestRestTemplate restTemplate;
 
@@ -36,8 +35,8 @@ class ControllerRegionTest {
         });
     List<Region> regions = response.getBody();
     assert regions != null;
-    Assert.assertEquals(regions.size(),8);
-    Assert.assertEquals(regions.get(4).getCode(),"03");
+    Assert.assertEquals(regions.size(), 8);
+    Assert.assertEquals(regions.get(4).getCode(), "03");
   }
 
   @Test
@@ -48,8 +47,8 @@ class ControllerRegionTest {
 
   @Test
   void getByCode() {
-    Region region = restTemplate.getForObject("/enter/code/{code}", Region.class, "02");
-    Assert.assertEquals(region, region2);
+    Region region = restTemplate.getForObject("/enter/code/{code}", Region.class, "03");
+    Assert.assertEquals(region, region3);
   }
 
   @Test

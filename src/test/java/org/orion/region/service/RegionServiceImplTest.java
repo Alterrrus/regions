@@ -4,15 +4,19 @@ package org.orion.region.service;
 import java.util.List;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
 import org.orion.region.RegionApplicationTests;
 import org.orion.region.error.EntityNotFoundException;
 import org.orion.region.model.Region;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
-
-class RegionServiceImplTest extends RegionApplicationTests {
+@SpringBootTest
+@RunWith(SpringRunner.class)
+class RegionServiceImplTest {
 Logger log = LoggerFactory.getLogger(RegionServiceImplTest.class);
   @Autowired
   private RegionService service;
@@ -45,19 +49,19 @@ Logger log = LoggerFactory.getLogger(RegionServiceImplTest.class);
 
   @Test
   void update() throws EntityNotFoundException {
-    Region regionGet = service.getById(2);
+    Region regionGet = service.getById(8);
     regionGet.setName("test");
     regionGet.setCode("50");
-    Region region = service.update(new Region(2, "test", "50"));
+    Region region = service.update(new Region(8, "test", "50"));
     Assert.assertEquals(regionGet, region);
 
   }
 
   @Test
   void delete() throws EntityNotFoundException {
-    service.getById(3);
-    service.delete(3);
-    Assert.assertThrows(EntityNotFoundException.class, () -> service.getById(3));
+    service.getById(5);
+    service.delete(5);
+    Assert.assertThrows(EntityNotFoundException.class, () -> service.getById(5));
   }
 
   @Test
